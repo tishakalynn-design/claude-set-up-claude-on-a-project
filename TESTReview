@@ -1,0 +1,93 @@
+# Project Overview
+
+A Node.js API service. The dev server runs locally at http://localhost:3000.
+
+<!-- Add a one- or two-line description of what the API does and its main stack (framework, database, etc.). -->
+
+## Commands
+
+- `npm install`: install dependencies
+- `npm run dev`: start the API in development mode on http://localhost:3000
+- `npm test`: run the test suite
+- `npm run lint`: check code style
+
+Run `npm run lint` and `npm test` before considering a change complete.
+
+## Project Structure
+
+- `server.js` — entry point; starts the Express API on port 3000
+- `routes/` — one file per resource (`users.js`, `health.js`)
+- `db/store.js` — in-memory data helper
+- `tests/` — test files
+
+## Code Style
+
+- Follow the existing lint configuration; fix lint errors rather than disabling rules.
+- Match the conventions of surrounding code (naming, module style, error handling).
+- Keep changes small and focused; avoid unrelated refactors.
+
+## Testing
+
+- Add or update tests alongside any behavior change.
+- Run the relevant tests after editing, and the full suite before finishing.
+
+## Notes for Claude
+
+- Do not commit secrets or `.env` files.
+- Ask before adding new dependencies.
+- If a command above fails, report the error output instead of guessing at a fix.
+
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run dev)",
+      "Bash(npm test)",
+      "Bash(npm run lint)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}
+
+# Claude Code Setup Notes
+
+## Project commands
+
+- `npm install`: install dependencies
+- `npm run dev`: start the API on http://localhost:3000
+- `npm test`: run the sample tests
+- `npm run lint`: check code style
+
+## Claude Code basics
+
+- `claude`: start an interactive Claude Code session in the current directory
+- `claude --version`: print the installed version
+- `/init`: slash command (inside a session) that scans the project and generates `CLAUDE.md`
+
+## Files added
+
+- `CLAUDE.md` (repo root): project context Claude Code reads at the start of every session. Still to fill in: what the API does, the stack, real directory layout, code style specifics (ESM/CJS, JS/TS).
+- `.claude/settings.json`: shared project settings, meant to be committed.
+  - Allows: `npm install`, `npm run dev`, `npm test`, `npm run lint`
+  - Denies reading: `.env`, `.env.*`
+- `.claude/settings.local.json`: personal overrides; keep out of git (check `.gitignore`).
+
+## Commit steps
+
+```bash
+mkdir -p .claude
+mv ~/Downloads/settings.json .claude/settings.json
+git add CLAUDE.md .claude/settings.json && git commit -m "Add Claude Code project config (CLAUDE.md, settings.json)"
+```
+
+- `.claude/settings.json` must exist before `git add`, or it fails with "pathspec did not match".
+- Pasting `git add ... git commit ...` on one line without `&&` or a newline between them will fail.
+
+## To do
+
+- [ ] Fill in the placeholders in `CLAUDE.md`
+- [ ] Decide whether `NOTES.md` belongs in the repo
+- [ ] Confirm `.claude/settings.local.json` is in `.gitignore`
